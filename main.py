@@ -20,6 +20,11 @@ class Game:
     def novo_jogo(self):
         """ INSTANCIA TODAS AS SPRITES DO JOGO """
         self.todas_as_sprites = pygame.sprite.Group()
+
+        self.pacman = sprites.Pacman(self.sprite_sheet)
+
+        self.todas_as_sprites.add(self.pacman)
+
         self.rodar()
 
     def rodar(self):
@@ -57,6 +62,8 @@ class Game:
         self.sprite_sheet       = os.path.join(diretorio_imagens, constants.SPRITESHEET)
         self.packman_start_logo = os.path.join(diretorio_imagens, constants.PACKMAN_START_LOGO)
 
+        
+        self.sprite_sheet       = pygame.image.load(self.sprite_sheet).convert_alpha()
         self.packman_start_logo = pygame.image.load(self.packman_start_logo).convert() # TRANSFORMANDO EM IMAGEM
 
     def mostrar_texto(self, texto: str, tamanho: int, cor: tuple, x: int, y: int):
@@ -100,6 +107,7 @@ class Game:
         pygame.display.flip()
         self.esperar_jogador()
 
+
     def esperar_jogador(self):
         esperando = True
         while esperando:
@@ -113,7 +121,7 @@ class Game:
                 if event.type == pygame.KEYUP:
                     esperando = False
                     pygame.mixer.music.stop()
-                    pygame.mixer.Sound(os.path.join(self.diretorio_audios, ))
+                    pygame.mixer.Sound(os.path.join(self.diretorio_audios, constants.TECLA_START))
 
     def mostrar_tela_gameover(self):
         pass
@@ -126,3 +134,4 @@ if __name__ == "__main__":
     while game.esta_rodando:
         game.novo_jogo()
         game.mostrar_tela_gameover()
+        todas_as_sprites.update()
