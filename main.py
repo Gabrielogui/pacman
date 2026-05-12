@@ -45,6 +45,18 @@ class Game:
                 if self.jogando:
                     self.jogando  = False
 
+            if event.type == pygame.KEYDOWN:
+                
+                # MOVIMENTAÇÃO DO PACMAN
+                if event.key == pygame.K_UP:
+                    self.pacman.change_direction(constants.DirecaoPacman.UP)
+                if event.key == pygame.K_DOWN:
+                    self.pacman.change_direction(constants.DirecaoPacman.DOWN)
+                if event.key == pygame.K_RIGHT:
+                    self.pacman.change_direction(constants.DirecaoPacman.RIGHT)
+                if event.key == pygame.K_LEFT:
+                    self.pacman.change_direction(constants.DirecaoPacman.LEFT)
+
 
     def atualizar_sprites(self):
         self.todas_as_sprites.update()
