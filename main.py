@@ -134,4 +134,3 @@ if __name__ == "__main__":
     while game.esta_rodando:
         game.novo_jogo()
         game.mostrar_tela_gameover()
-        todas_as_sprites.update()
