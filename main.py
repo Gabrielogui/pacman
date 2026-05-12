@@ -21,8 +21,10 @@ class Game:
         """ INSTANCIA TODAS AS SPRITES DO JOGO """
         self.todas_as_sprites = pygame.sprite.Group()
 
+        self.mapa   = sprites.Mapa(self.sprite_sheet)
         self.pacman = sprites.Pacman(self.sprite_sheet)
 
+        self.todas_as_sprites.add(self.mapa)
         self.todas_as_sprites.add(self.pacman)
 
         self.rodar()
@@ -46,7 +48,7 @@ class Game:
                     self.jogando  = False
 
             if event.type == pygame.KEYDOWN:
-                
+
                 # MOVIMENTAÇÃO DO PACMAN
                 if event.key == pygame.K_UP:
                     self.pacman.change_direction(constants.DirecaoPacman.UP)
