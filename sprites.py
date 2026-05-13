@@ -88,8 +88,8 @@ class Pacman(pygame.sprite.Sprite):
 
             self.image = self.imagens_pacman_right[int(self.index_lista)]
 
-            if not self.colidiu_parede:
-                self.rect.x += constants.VELOCIDADE_PACMAN
+           
+            self.rect.x += constants.VELOCIDADE_PACMAN
 
         elif self.direcao == constants.DirecaoPacman.LEFT:
             self.index_lista += constants.VELOCIDADE_SPRITE
@@ -99,8 +99,8 @@ class Pacman(pygame.sprite.Sprite):
 
             self.image = self.imagens_pacman_left[int(self.index_lista)]
 
-            if not self.colidiu_parede:
-                self.rect.x -= constants.VELOCIDADE_PACMAN
+           
+            self.rect.x -= constants.VELOCIDADE_PACMAN
         
         elif self.direcao == constants.DirecaoPacman.UP:
             self.index_lista += constants.VELOCIDADE_SPRITE
@@ -110,8 +110,8 @@ class Pacman(pygame.sprite.Sprite):
 
             self.image = self.imagens_pacman_up[int(self.index_lista)]
 
-            if not self.colidiu_parede:
-                self.rect.y -= constants.VELOCIDADE_PACMAN
+           
+            self.rect.y -= constants.VELOCIDADE_PACMAN
         
         elif self.direcao == constants.DirecaoPacman.DOWN:
             self.index_lista += constants.VELOCIDADE_SPRITE
@@ -121,8 +121,8 @@ class Pacman(pygame.sprite.Sprite):
 
             self.image = self.imagens_pacman_down[int(self.index_lista)]
 
-            if not self.colidiu_parede:
-                self.rect.y += constants.VELOCIDADE_PACMAN
+           
+            self.rect.y += constants.VELOCIDADE_PACMAN
 
 
 class Mapa(pygame.sprite.Sprite):

@@ -40,13 +40,6 @@ class Game:
 
             self.eventos()
 
-            colidiu_parede = pygame.sprite.spritecollide(self.pacman, self.grupo_parede, False, pygame.sprite.collide_mask)
-
-            if colidiu_parede:
-                self.pacman.change_colidiu_parede(True)
-            else:
-                self.pacman.change_colidiu_parede(False)
-
             self.atualizar_sprites()
             self.desenhar_sprites()
 
@@ -61,18 +54,28 @@ class Game:
             if event.type == pygame.KEYDOWN:
 
                 # MOVIMENTAÇÃO DO PACMAN
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_UP or event.key == pygame.K_w:
                     self.pacman.change_direction(constants.DirecaoPacman.UP)
-                if event.key == pygame.K_DOWN:
+                if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                     self.pacman.change_direction(constants.DirecaoPacman.DOWN)
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                     self.pacman.change_direction(constants.DirecaoPacman.RIGHT)
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     self.pacman.change_direction(constants.DirecaoPacman.LEFT)
 
 
     def atualizar_sprites(self):
+        pos_antiga_x = self.pacman.rect.x
+        pos_antiga_y = self.pacman.rect.y
+
         self.todas_as_sprites.update()
+
+        colidiu_parede = pygame.sprite.spritecollide(self.pacman, self.grupo_parede, False, pygame.sprite.collide_mask)
+
+        if colidiu_parede:
+            self.pacman.rect.x = pos_antiga_x
+            self.pacman.rect.y = pos_antiga_y
+    
 
     def desenhar_sprites(self):
         self.tela.fill(constants.PRETO)       # LIMPANDO A TELA
