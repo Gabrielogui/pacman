@@ -20,12 +20,15 @@ class Game:
     def novo_jogo(self):
         """ INSTANCIA TODAS AS SPRITES DO JOGO """
         self.todas_as_sprites = pygame.sprite.Group()
+        self.grupo_parede     = pygame.sprite.Group()
 
         self.mapa   = sprites.Mapa(self.sprite_sheet)
         self.pacman = sprites.Pacman(self.sprite_sheet)
 
         self.todas_as_sprites.add(self.mapa)
         self.todas_as_sprites.add(self.pacman)
+
+        self.grupo_parede.add(self.mapa)
 
         self.rodar()
 
@@ -36,6 +39,14 @@ class Game:
             self.relogio.tick(constants.FPS)
 
             self.eventos()
+
+            colidiu_parede = pygame.sprite.spritecollide(self.pacman, self.grupo_parede, False, pygame.sprite.collide_mask)
+
+            if colidiu_parede:
+                self.pacman.change_colidiu_parede(True)
+            else:
+                self.pacman.change_colidiu_parede(False)
+
             self.atualizar_sprites()
             self.desenhar_sprites()
 
