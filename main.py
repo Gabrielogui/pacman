@@ -14,6 +14,8 @@ class Game:
 
         self.esta_rodando = True
 
+        self.pontuacao = 0
+
         self.fonte = pygame.font.match_font(constants.FONTE)
         self.carregar_arquivos()
 
@@ -27,11 +29,11 @@ class Game:
         self.pacman  = sprites.Pacman(self.sprite_sheet)
 
         self.todas_as_sprites.add(self.mapa)
+        self.carrgar_mapa()
         self.todas_as_sprites.add(self.pacman)
 
         self.grupo_parede.add(self.mapa)
 
-        self.carrgar_mapa()
         self.rodar()
         
     def carrgar_mapa(self):
@@ -91,6 +93,14 @@ class Game:
 
         colidiu_parede = pygame.sprite.spritecollide(self.pacman, self.grupo_parede, False, pygame.sprite.collide_mask)
 
+        comeu_bolinha  = pygame.sprite.spritecollide(self.pacman, self.grupo_bolinhas, False)
+        
+        if comeu_bolinha:
+            self.pontuacao += 1
+            self.grupo_bolinhas.remove(comeu_bolinha[0])
+            self.todas_as_sprites.remove(comeu_bolinha[0])
+
+
         if colidiu_parede:
             self.pacman.rect.x = pos_antiga_x
             self.pacman.rect.y = pos_antiga_y
@@ -100,6 +110,8 @@ class Game:
     def desenhar_sprites(self):
         self.tela.fill(constants.PRETO)       # LIMPANDO A TELA
         self.todas_as_sprites.draw(self.tela) # DESENHANDO AS SPRITES
+        self.mostrar_texto(str(f"Pontuação: {self.pontuacao}"), 20, constants.BRANCO, constants.LARGURA // 2, constants.ALTURA - 30)
+
         pygame.display.flip()
 
     def carregar_arquivos(self):
