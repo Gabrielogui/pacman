@@ -142,3 +142,16 @@ class Mapa(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
 
+class Bolinha(pygame.sprite.Sprite):
+    def __init__(self, sprite_sheet: pygame.surface.Surface, pos_x: int, pos_y: int):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.image = sprite_sheet.subsurface((10, 10), (4, 4))
+        self.image = pygame.transform.scale(self.image, (4 * 2, 4 * 2))
+
+        self.rect = self.image.get_rect()
+        self.rect.x = pos_x
+        self.rect.y = pos_y
+
+
+

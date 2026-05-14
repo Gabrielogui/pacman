@@ -21,16 +21,34 @@ class Game:
         """ INSTANCIA TODAS AS SPRITES DO JOGO """
         self.todas_as_sprites = pygame.sprite.Group()
         self.grupo_parede     = pygame.sprite.Group()
+        self.grupo_bolinhas   = pygame.sprite.Group()
 
-        self.mapa   = sprites.Mapa(self.sprite_sheet)
-        self.pacman = sprites.Pacman(self.sprite_sheet)
+        self.mapa    = sprites.Mapa(self.sprite_sheet)
+        self.pacman  = sprites.Pacman(self.sprite_sheet)
 
         self.todas_as_sprites.add(self.mapa)
         self.todas_as_sprites.add(self.pacman)
 
         self.grupo_parede.add(self.mapa)
 
+        self.carrgar_mapa()
         self.rodar()
+        
+    def carrgar_mapa(self):
+        """ MÉTODO QUE CARREGA O MAPA COM SUAS SPREITES INTERNAS """
+
+        margem_x = self.mapa.rect.x + constants.BOLINHA_TAMANHO_PIXEL * 2
+        margem_y = self.mapa.rect.y + constants.BOLINHA_TAMANHO_PIXEL * 2
+
+        for linha_idx, linha in enumerate(constants.MAPA):
+            for col_idx, valor in enumerate(linha):
+                x = margem_x + (col_idx * 16)
+                y = margem_y + (linha_idx * 16)
+
+                if valor == constants.ElementosMapa.BP.value:
+                    bolinha = sprites.Bolinha(self.sprite_sheet, pos_x=x, pos_y=y)
+                    self.grupo_bolinhas.add(bolinha)
+                    self.todas_as_sprites.add(bolinha)
 
     def rodar(self):
         """ LOOP PRINCIPAL DO JOGO """
@@ -42,6 +60,7 @@ class Game:
 
             self.atualizar_sprites()
             self.desenhar_sprites()
+
 
     def eventos(self):
         """ DEFINE OS EVENTOS DO JOGO """
@@ -76,6 +95,7 @@ class Game:
             self.pacman.rect.x = pos_antiga_x
             self.pacman.rect.y = pos_antiga_y
     
+
 
     def desenhar_sprites(self):
         self.tela.fill(constants.PRETO)       # LIMPANDO A TELA
